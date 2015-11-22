@@ -318,7 +318,7 @@ Otherwise call `aai-indent-forward'."
 (defun aai--minor-mode-setup ()
   "Change interacting minor modes."
   (eval-after-load 'multiple-cursors-core
-    '(pushnew 'aai-mode mc/unsupported-minor-modes))
+    '(cl-pushnew 'aai-mode mc/unsupported-minor-modes))
   (eval-after-load 'paredit
     '(es-define-keys auto-auto-indent-mode-map
        [remap paredit-forward-delete] 'aai-delete-char
@@ -336,7 +336,7 @@ Otherwise call `aai-indent-forward'."
 (defun aai--init ()
   (run-hooks 'aai-mode-hook)
   (add-hook 'post-command-hook 'aai-post-command-hook t t)
-  (pushnew 'aai-before-change-function before-change-functions)
+  (cl-pushnew 'aai-before-change-function before-change-functions)
   (when (eq (key-binding (kbd "C-v")) 'cua-paste)
     (es-define-keys auto-auto-indent-mode-map
       (kbd "C-v") 'aai-indented-yank))
